@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 
 const StatisticsView = () => {
   const [period, setPeriod] = useState<'day' | 'week' | 'month'>('month');
+  const [chartType, setChartType] = useState<'pie' | 'bar'>('pie');
 
   const categoryData = [
     { name: 'Продукты', amount: 12500, percent: 35, color: 'bg-orange-500' },
@@ -112,7 +113,7 @@ const StatisticsView = () => {
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-medium text-slate-700">{day.day}</span>
                   <div className="flex gap-4">
-                    <span className="text-emerald-600 font-semibold">
+                    <span className="text-green-700 font-semibold">
                       +{day.income.toLocaleString('ru-RU')} ₽
                     </span>
                     <span className="text-red-600 font-semibold">
@@ -122,7 +123,7 @@ const StatisticsView = () => {
                 </div>
                 <div className="flex gap-2 h-8">
                   <div 
-                    className="bg-emerald-500 rounded-lg transition-all hover:bg-emerald-600"
+                    className="bg-green-600 rounded-lg transition-all hover:bg-green-700"
                     style={{ width: `${(day.income / maxAmount) * 100}%` }}
                   />
                   <div 
@@ -138,14 +139,35 @@ const StatisticsView = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Icon name="PieChart" className="h-5 w-5" />
-            Расходы по категориям
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="flex items-center gap-2">
+              <Icon name="PieChart" className="h-5 w-5" />
+              Расходы по категориям
+            </CardTitle>
+            <div className="flex gap-1 bg-slate-100 rounded-lg p-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setChartType('pie')}
+                className={chartType === 'pie' ? 'bg-white shadow-sm' : ''}
+              >
+                <Icon name="PieChart" className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setChartType('bar')}
+                className={chartType === 'bar' ? 'bg-white shadow-sm' : ''}
+              >
+                <Icon name="BarChart3" className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="space-y-6">
-            <div className="flex items-center justify-center">
+            {chartType === 'pie' && (
+              <div className="flex items-center justify-center">
               <svg width="280" height="280" viewBox="0 0 280 280" className="transform -rotate-90">
                 {categoryData.reduce((acc, cat, index) => {
                   const prevSum = categoryData.slice(0, index).reduce((sum, c) => sum + c.percent, 0);
@@ -183,7 +205,34 @@ const StatisticsView = () => {
                   ₽
                 </text>
               </svg>
-            </div>
+              </div>
+            )}
+
+            {chartType === 'bar' && (
+              <div className="space-y-4">
+                {categoryData.map((cat) => (
+                  <div key={cat.name} className="space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="font-medium text-slate-700">{cat.name}</span>
+                      <span className="font-semibold text-slate-900">
+                        {cat.amount.toLocaleString('ru-RU')} ₽
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-slate-200 rounded-lg h-8 overflow-hidden">
+                        <div
+                          className={`h-full ${cat.color} transition-all`}
+                          style={{ width: `${cat.percent}%` }}
+                        />
+                      </div>
+                      <span className="text-sm font-semibold text-slate-700 w-12 text-right">
+                        {cat.percent}%
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="space-y-3">
               {categoryData.map((cat) => (

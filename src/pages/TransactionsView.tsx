@@ -91,7 +91,7 @@ const TransactionsView = () => {
                 <div className="flex items-center gap-4">
                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${
                     transaction.type === 'income' 
-                      ? 'bg-emerald-100 text-emerald-600' 
+                      ? 'bg-green-100 text-green-700' 
                       : 'bg-red-100 text-red-600'
                   }`}>
                     <Icon 
@@ -110,7 +110,7 @@ const TransactionsView = () => {
                 </div>
                 <div className="text-right">
                   <p className={`text-2xl font-bold ${
-                    transaction.type === 'income' ? 'text-emerald-600' : 'text-red-600'
+                    transaction.type === 'income' ? 'text-green-700' : 'text-red-600'
                   }`}>
                     {transaction.type === 'income' ? '+' : '-'}
                     {transaction.amount.toLocaleString('ru-RU')} ₽
