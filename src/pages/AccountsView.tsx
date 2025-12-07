@@ -23,7 +23,45 @@ const AccountsView = () => {
     { id: '3', name: 'Наличные', type: 'cash', balance: 5000, icon: 'Wallet', color: 'from-slate-400 to-slate-600' },
   ]);
 
+  const [newAccountName, setNewAccountName] = useState('');
+  const [newAccountType, setNewAccountType] = useState('');
+  const [newAccountBalance, setNewAccountBalance] = useState('');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const totalBalance = accounts.reduce((sum, acc) => sum + acc.balance, 0);
+
+  const colorMap: Record<string, string> = {
+    'card': 'from-blue-400 to-blue-600',
+    'cash': 'from-slate-400 to-slate-600',
+    'savings': 'from-green-400 to-green-600',
+    'investment': 'from-purple-400 to-purple-600'
+  };
+
+  const iconMap: Record<string, string> = {
+    'card': 'CreditCard',
+    'cash': 'Wallet',
+    'savings': 'Landmark',
+    'investment': 'TrendingUp'
+  };
+
+  const handleCreateAccount = () => {
+    if (!newAccountName.trim() || !newAccountType) return;
+
+    const newAccount: Account = {
+      id: Date.now().toString(),
+      name: newAccountName.trim(),
+      type: newAccountType,
+      balance: parseFloat(newAccountBalance) || 0,
+      icon: iconMap[newAccountType] || 'Wallet',
+      color: colorMap[newAccountType] || 'from-slate-400 to-slate-600'
+    };
+
+    setAccounts([...accounts, newAccount]);
+    setNewAccountName('');
+    setNewAccountType('');
+    setNewAccountBalance('');
+    setIsDialogOpen(false);
+  };
 
   return (
     <div className="space-y-6">
@@ -39,7 +77,7 @@ const AccountsView = () => {
 
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-slate-900">Мои счета</h2>
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-emerald-500 hover:bg-emerald-600">
               <Icon name="Plus" className="mr-2 h-4 w-4" />
@@ -53,11 +91,16 @@ const AccountsView = () => {
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="account-name">Название</Label>
-                <Input id="account-name" placeholder="Название счёта" />
+                <Input 
+                  id="account-name" 
+                  placeholder="Название счёта"
+                  value={newAccountName}
+                  onChange={(e) => setNewAccountName(e.target.value)}
+                />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="account-type">Тип</Label>
-                <Select>
+                <Select value={newAccountType} onValueChange={setNewAccountType}>
                   <SelectTrigger>
                     <SelectValue placeholder="Выберите тип" />
                   </SelectTrigger>
@@ -71,9 +114,20 @@ const AccountsView = () => {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="account-balance">Начальный баланс</Label>
-                <Input id="account-balance" type="number" placeholder="0" />
+                <Input 
+                  id="account-balance" 
+                  type="number" 
+                  placeholder="0"
+                  value={newAccountBalance}
+                  onChange={(e) => setNewAccountBalance(e.target.value)}
+                />
               </div>
-              <Button className="w-full bg-emerald-500 hover:bg-emerald-600">Создать счёт</Button>
+              <Button 
+                className="w-full bg-emerald-500 hover:bg-emerald-600"
+                onClick={handleCreateAccount}
+              >
+                Создать счёт
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
