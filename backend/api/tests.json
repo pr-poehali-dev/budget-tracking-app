@@ -1,0 +1,47 @@
+{
+  "tests": [
+    {
+      "name": "Get all accounts",
+      "method": "GET",
+      "path": "/accounts",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "0": {
+          "id": "number",
+          "name": "string",
+          "type": "string",
+          "balance": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get all categories",
+      "method": "GET",
+      "path": "/categories",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "0": {
+          "id": "number",
+          "name": "string",
+          "type": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get all transactions",
+      "method": "GET",
+      "path": "/transactions",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "0": {
+          "id": "number",
+          "type": "string",
+          "amount": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
