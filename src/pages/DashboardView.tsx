@@ -46,9 +46,26 @@ const DashboardView = () => {
   const [expenseDescription, setExpenseDescription] = useState('');
   const [isExpenseDialogOpen, setIsExpenseDialogOpen] = useState(false);
 
+  const [categories, setCategories] = useState<{id: string, name: string, type: 'income' | 'expense'}[]>([]);
+  const [accounts, setAccounts] = useState<{id: string, name: string}[]>([]);
+
+  useEffect(() => {
+    const savedCategories = localStorage.getItem('finplan_categories');
+    if (savedCategories) {
+      setCategories(JSON.parse(savedCategories));
+    }
+    const savedAccounts = localStorage.getItem('finplan_accounts');
+    if (savedAccounts) {
+      setAccounts(JSON.parse(savedAccounts));
+    }
+  }, []);
+
   const totalIncome = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
   const totalExpense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
   const balance = totalIncome - totalExpense;
+
+  const incomeCategories = categories.filter(c => c.type === 'income');
+  const expenseCategories = categories.filter(c => c.type === 'expense');
 
   const handleAddIncome = () => {
     const amount = parseFloat(incomeAmount);
@@ -201,9 +218,9 @@ const DashboardView = () => {
                     <SelectValue placeholder="Выберите категорию" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Зарплата">Зарплата</SelectItem>
-                    <SelectItem value="Фриланс">Фриланс</SelectItem>
-                    <SelectItem value="Инвестиции">Инвестиции</SelectItem>
+                    {incomeCategories.map(cat => (
+                      <SelectItem key={cat.id} value={cat.name}>{cat.name}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -214,9 +231,9 @@ const DashboardView = () => {
                     <SelectValue placeholder="Выберите счёт" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Тинькофф">Тинькофф</SelectItem>
-                    <SelectItem value="Сбербанк">Сбербанк</SelectItem>
-                    <SelectItem value="Наличные">Наличные</SelectItem>
+                    {accounts.map(acc => (
+                      <SelectItem key={acc.id} value={acc.name}>{acc.name}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -268,11 +285,9 @@ const DashboardView = () => {
                     <SelectValue placeholder="Выберите категорию" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Продукты">Продукты</SelectItem>
-                    <SelectItem value="Транспорт">Транспорт</SelectItem>
-                    <SelectItem value="Развлечения">Развлечения</SelectItem>
-                    <SelectItem value="Здоровье">Здоровье</SelectItem>
-                    <SelectItem value="Образование">Образование</SelectItem>
+                    {expenseCategories.map(cat => (
+                      <SelectItem key={cat.id} value={cat.name}>{cat.name}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -283,9 +298,9 @@ const DashboardView = () => {
                     <SelectValue placeholder="Выберите счёт" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Тинькофф">Тинькофф</SelectItem>
-                    <SelectItem value="Сбербанк">Сбербанк</SelectItem>
-                    <SelectItem value="Наличные">Наличные</SelectItem>
+                    {accounts.map(acc => (
+                      <SelectItem key={acc.id} value={acc.name}>{acc.name}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
