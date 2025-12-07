@@ -144,19 +144,48 @@ const StatisticsView = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div className="flex gap-2 h-8 rounded-lg overflow-hidden">
-              {categoryData.map((cat) => (
-                <div
-                  key={cat.name}
-                  className={`${cat.color} transition-all hover:opacity-80 cursor-pointer`}
-                  style={{ width: `${cat.percent}%` }}
-                  title={`${cat.name}: ${cat.amount.toLocaleString('ru-RU')} ₽`}
-                />
-              ))}
+          <div className="space-y-6">
+            <div className="flex items-center justify-center">
+              <svg width="280" height="280" viewBox="0 0 280 280" className="transform -rotate-90">
+                {categoryData.reduce((acc, cat, index) => {
+                  const prevSum = categoryData.slice(0, index).reduce((sum, c) => sum + c.percent, 0);
+                  const circumference = 2 * Math.PI * 90;
+                  const strokeDasharray = `${(cat.percent / 100) * circumference} ${circumference}`;
+                  const strokeDashoffset = -((prevSum / 100) * circumference);
+                  
+                  return [
+                    ...acc,
+                    <circle
+                      key={cat.name}
+                      cx="140"
+                      cy="140"
+                      r="90"
+                      fill="none"
+                      stroke={
+                        cat.color === 'bg-orange-500' ? '#f97316' :
+                        cat.color === 'bg-red-500' ? '#ef4444' :
+                        cat.color === 'bg-pink-500' ? '#ec4899' :
+                        cat.color === 'bg-rose-500' ? '#f43f5e' :
+                        '#6366f1'
+                      }
+                      strokeWidth="40"
+                      strokeDasharray={strokeDasharray}
+                      strokeDashoffset={strokeDashoffset}
+                      className="transition-all hover:opacity-80 cursor-pointer"
+                    />
+                  ];
+                }, [] as JSX.Element[])}
+                <circle cx="140" cy="140" r="60" fill="white" />
+                <text x="140" y="135" textAnchor="middle" className="fill-slate-900 font-bold text-2xl transform rotate-90" style={{ transformOrigin: '140px 140px' }}>
+                  35,950
+                </text>
+                <text x="140" y="155" textAnchor="middle" className="fill-slate-600 text-sm transform rotate-90" style={{ transformOrigin: '140px 140px' }}>
+                  ₽
+                </text>
+              </svg>
             </div>
 
-            <div className="space-y-3 mt-6">
+            <div className="space-y-3">
               {categoryData.map((cat) => (
                 <div key={cat.name} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
                   <div className="flex items-center gap-3">
