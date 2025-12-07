@@ -13,7 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
 
-    --primary: 160 84% 39%;
+    --primary: 160 70% 50%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 214 32% 91%;
@@ -22,7 +22,7 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 160 60% 45%;
+    --accent: 160 65% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -30,13 +30,13 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 160 84% 39%;
+    --ring: 160 70% 50%;
 
     --radius: 0.75rem;
 
-    --income: 160 84% 39%;
+    --income: 160 70% 50%;
     --expense: 0 84.2% 60.2%;
-    --chart-1: 160 84% 39%;
+    --chart-1: 160 70% 50%;
     --chart-2: 200 80% 50%;
     --chart-3: 280 70% 60%;
     --chart-4: 40 90% 55%;

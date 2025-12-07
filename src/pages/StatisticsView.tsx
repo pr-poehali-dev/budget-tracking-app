@@ -42,13 +42,13 @@ const StatisticsView = () => {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200">
+        <Card className="bg-gradient-to-br from-cyan-50 to-teal-100 border-cyan-200">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-emerald-900">Средний доход</CardTitle>
+            <CardTitle className="text-sm font-medium text-cyan-900">Средний доход</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-emerald-700">73,000 ₽</div>
-            <p className="text-xs text-emerald-600 mt-1">в месяц</p>
+            <div className="text-3xl font-bold text-cyan-700">73,000 ₽</div>
+            <p className="text-xs text-cyan-600 mt-1">в месяц</p>
           </CardContent>
         </Card>
 
@@ -112,7 +112,7 @@ const StatisticsView = () => {
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-medium text-slate-700">{day.day}</span>
                   <div className="flex gap-4">
-                    <span className="text-emerald-600 font-semibold">
+                    <span className="text-cyan-600 font-semibold">
                       +{day.income.toLocaleString('ru-RU')} ₽
                     </span>
                     <span className="text-red-600 font-semibold">
@@ -122,7 +122,7 @@ const StatisticsView = () => {
                 </div>
                 <div className="flex gap-2 h-8">
                   <div 
-                    className="bg-emerald-500 rounded-lg transition-all hover:bg-emerald-600"
+                    className="bg-cyan-500 rounded-lg transition-all hover:bg-cyan-600"
                     style={{ width: `${(day.income / maxAmount) * 100}%` }}
                   />
                   <div 
@@ -186,7 +186,7 @@ const StatisticsView = () => {
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center">
+              <div className="w-16 h-16 bg-cyan-500 rounded-2xl flex items-center justify-center">
                 <Icon name="Briefcase" className="h-8 w-8 text-white" />
               </div>
               <div>

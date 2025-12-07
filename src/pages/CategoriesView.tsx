@@ -17,7 +17,7 @@ interface Category {
 
 const CategoriesView = () => {
   const [categories, setCategories] = useState<Category[]>([
-    { id: '1', name: 'Зарплата', icon: 'Briefcase', color: 'bg-emerald-500', type: 'income' },
+    { id: '1', name: 'Зарплата', icon: 'Briefcase', color: 'bg-cyan-500', type: 'income' },
     { id: '2', name: 'Фриланс', icon: 'Laptop', color: 'bg-blue-500', type: 'income' },
     { id: '3', name: 'Инвестиции', icon: 'TrendingUp', color: 'bg-purple-500', type: 'income' },
     { id: '4', name: 'Продукты', icon: 'ShoppingCart', color: 'bg-orange-500', type: 'expense' },
@@ -47,7 +47,7 @@ const CategoriesView = () => {
         <h2 className="text-2xl font-bold text-slate-900">Категории</h2>
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="bg-emerald-500 hover:bg-emerald-600">
+            <Button className="bg-cyan-500 hover:bg-cyan-600">
               <Icon name="Plus" className="mr-2 h-4 w-4" />
               Добавить категорию
             </Button>
@@ -84,7 +84,7 @@ const CategoriesView = () => {
                   ))}
                 </div>
               </div>
-              <Button className="w-full bg-emerald-500 hover:bg-emerald-600">Создать</Button>
+              <Button className="w-full bg-cyan-500 hover:bg-cyan-600">Создать</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -100,7 +100,7 @@ const CategoriesView = () => {
         <TabsContent value="all" className="mt-6">
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-emerald-700 mb-4">Доходы</h3>
+              <h3 className="text-lg font-semibold text-cyan-700 mb-4">Доходы</h3>
               <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {incomeCategories.map(category => (
                   <CategoryCard key={category.id} category={category} />
