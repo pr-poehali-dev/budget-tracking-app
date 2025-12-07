@@ -41,12 +41,27 @@ const DashboardView = () => {
   const balance = totalIncome - totalExpense;
 
   const handleAddIncome = () => {
-    if (!incomeAmount || !incomeCategory || !incomeAccount) return;
+    const amount = parseFloat(incomeAmount);
+    
+    if (!incomeAmount || isNaN(amount) || amount <= 0) {
+      alert('Пожалуйста, введите корректную сумму');
+      return;
+    }
+    
+    if (!incomeCategory) {
+      alert('Пожалуйста, выберите категорию');
+      return;
+    }
+    
+    if (!incomeAccount) {
+      alert('Пожалуйста, выберите счёт');
+      return;
+    }
 
     const newTransaction: Transaction = {
       id: Date.now().toString(),
       type: 'income',
-      amount: parseFloat(incomeAmount),
+      amount: amount,
       category: incomeCategory,
       account: incomeAccount,
       date: new Date().toISOString().split('T')[0],
@@ -62,12 +77,27 @@ const DashboardView = () => {
   };
 
   const handleAddExpense = () => {
-    if (!expenseAmount || !expenseCategory || !expenseAccount) return;
+    const amount = parseFloat(expenseAmount);
+    
+    if (!expenseAmount || isNaN(amount) || amount <= 0) {
+      alert('Пожалуйста, введите корректную сумму');
+      return;
+    }
+    
+    if (!expenseCategory) {
+      alert('Пожалуйста, выберите категорию');
+      return;
+    }
+    
+    if (!expenseAccount) {
+      alert('Пожалуйста, выберите счёт');
+      return;
+    }
 
     const newTransaction: Transaction = {
       id: Date.now().toString(),
       type: 'expense',
-      amount: parseFloat(expenseAmount),
+      amount: amount,
       category: expenseCategory,
       account: expenseAccount,
       date: new Date().toISOString().split('T')[0],
