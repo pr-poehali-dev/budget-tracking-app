@@ -27,8 +27,38 @@ const CategoriesView = () => {
     { id: '8', name: 'Образование', icon: 'GraduationCap', color: 'bg-indigo-500', type: 'expense' },
   ]);
 
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newCategoryType, setNewCategoryType] = useState<'income' | 'expense'>('income');
+  const [newCategoryIcon, setNewCategoryIcon] = useState('Briefcase');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const incomeCategories = categories.filter(c => c.type === 'income');
   const expenseCategories = categories.filter(c => c.type === 'expense');
+
+  const colorOptions = [
+    'bg-emerald-500', 'bg-blue-500', 'bg-purple-500', 'bg-orange-500',
+    'bg-red-500', 'bg-pink-500', 'bg-indigo-500', 'bg-teal-500',
+    'bg-amber-500', 'bg-lime-500', 'bg-cyan-500', 'bg-violet-500'
+  ];
+
+  const handleCreateCategory = () => {
+    if (!newCategoryName.trim()) return;
+
+    const randomColor = colorOptions[Math.floor(Math.random() * colorOptions.length)];
+    const newCategory: Category = {
+      id: Date.now().toString(),
+      name: newCategoryName.trim(),
+      icon: newCategoryIcon,
+      color: randomColor,
+      type: newCategoryType
+    };
+
+    setCategories([...categories, newCategory]);
+    setNewCategoryName('');
+    setNewCategoryType('income');
+    setNewCategoryIcon('Briefcase');
+    setIsDialogOpen(false);
+  };
 
   const CategoryCard = ({ category }: { category: Category }) => (
     <Card className="hover:shadow-lg transition-all hover:scale-105 cursor-pointer">
@@ -45,7 +75,7 @@ const CategoriesView = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-slate-900">Категории</h2>
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-emerald-500 hover:bg-emerald-600">
               <Icon name="Plus" className="mr-2 h-4 w-4" />
@@ -59,16 +89,29 @@ const CategoriesView = () => {
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="category-name">Название</Label>
-                <Input id="category-name" placeholder="Название категории" />
+                <Input 
+                  id="category-name" 
+                  placeholder="Название категории"
+                  value={newCategoryName}
+                  onChange={(e) => setNewCategoryName(e.target.value)}
+                />
               </div>
               <div className="grid gap-2">
                 <Label>Тип</Label>
                 <div className="flex gap-2">
-                  <Button variant="outline" className="flex-1">
+                  <Button 
+                    variant={newCategoryType === 'income' ? 'default' : 'outline'}
+                    className={`flex-1 ${newCategoryType === 'income' ? 'bg-green-600 hover:bg-green-700' : ''}`}
+                    onClick={() => setNewCategoryType('income')}
+                  >
                     <Icon name="TrendingUp" className="mr-2 h-4 w-4" />
                     Доход
                   </Button>
-                  <Button variant="outline" className="flex-1">
+                  <Button 
+                    variant={newCategoryType === 'expense' ? 'default' : 'outline'}
+                    className={`flex-1 ${newCategoryType === 'expense' ? 'bg-red-600 hover:bg-red-700' : ''}`}
+                    onClick={() => setNewCategoryType('expense')}
+                  >
                     <Icon name="TrendingDown" className="mr-2 h-4 w-4" />
                     Расход
                   </Button>
@@ -77,14 +120,25 @@ const CategoriesView = () => {
               <div className="grid gap-2">
                 <Label>Иконка (выберите)</Label>
                 <div className="grid grid-cols-6 gap-2">
-                  {['ShoppingCart', 'Car', 'Home', 'Coffee', 'Plane', 'Gift'].map(iconName => (
-                    <Button key={iconName} variant="outline" size="icon">
+                  {['Briefcase', 'Laptop', 'ShoppingCart', 'Car', 'Home', 'Coffee', 'Plane', 'Gift', 'Heart', 'GraduationCap', 'Gamepad2', 'TrendingUp'].map(iconName => (
+                    <Button 
+                      key={iconName} 
+                      variant={newCategoryIcon === iconName ? 'default' : 'outline'}
+                      className={newCategoryIcon === iconName ? 'bg-emerald-500 hover:bg-emerald-600' : ''}
+                      size="icon"
+                      onClick={() => setNewCategoryIcon(iconName)}
+                    >
                       <Icon name={iconName as any} className="h-4 w-4" />
                     </Button>
                   ))}
                 </div>
               </div>
-              <Button className="w-full bg-emerald-500 hover:bg-emerald-600">Создать</Button>
+              <Button 
+                className="w-full bg-emerald-500 hover:bg-emerald-600"
+                onClick={handleCreateCategory}
+              >
+                Создать
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
