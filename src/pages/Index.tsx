@@ -21,7 +21,7 @@ const Index = () => {
                 <Icon name="Wallet" size={24} className="text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-slate-900">Мои Финансы</h1>
+                <h1 className="text-3xl font-bold text-slate-900">ФинПлан</h1>
                 <p className="text-slate-600 text-sm">Полный контроль над бюджетом</p>
               </div>
             </div>
