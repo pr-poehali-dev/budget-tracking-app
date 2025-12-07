@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -17,11 +17,21 @@ interface Account {
 }
 
 const AccountsView = () => {
-  const [accounts, setAccounts] = useState<Account[]>([
-    { id: '1', name: 'Тинькофф Black', type: 'card', balance: 48850, icon: 'CreditCard', color: 'from-yellow-400 to-yellow-600' },
-    { id: '2', name: 'Сбербанк', type: 'card', balance: 12500, icon: 'CreditCard', color: 'from-green-400 to-green-600' },
-    { id: '3', name: 'Наличные', type: 'cash', balance: 5000, icon: 'Wallet', color: 'from-slate-400 to-slate-600' },
-  ]);
+  const [accounts, setAccounts] = useState<Account[]>(() => {
+    const saved = localStorage.getItem('finplan_accounts');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    return [
+      { id: '1', name: 'Тинькофф Black', type: 'card', balance: 48850, icon: 'CreditCard', color: 'from-yellow-400 to-yellow-600' },
+      { id: '2', name: 'Сбербанк', type: 'card', balance: 12500, icon: 'CreditCard', color: 'from-green-400 to-green-600' },
+      { id: '3', name: 'Наличные', type: 'cash', balance: 5000, icon: 'Wallet', color: 'from-slate-400 to-slate-600' },
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('finplan_accounts', JSON.stringify(accounts));
+  }, [accounts]);
 
   const [newAccountName, setNewAccountName] = useState('');
   const [newAccountType, setNewAccountType] = useState('');

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -16,16 +16,26 @@ interface Category {
 }
 
 const CategoriesView = () => {
-  const [categories, setCategories] = useState<Category[]>([
-    { id: '1', name: 'Зарплата', icon: 'Briefcase', color: 'bg-emerald-500', type: 'income' },
-    { id: '2', name: 'Фриланс', icon: 'Laptop', color: 'bg-blue-500', type: 'income' },
-    { id: '3', name: 'Инвестиции', icon: 'TrendingUp', color: 'bg-purple-500', type: 'income' },
-    { id: '4', name: 'Продукты', icon: 'ShoppingCart', color: 'bg-orange-500', type: 'expense' },
-    { id: '5', name: 'Транспорт', icon: 'Car', color: 'bg-red-500', type: 'expense' },
-    { id: '6', name: 'Развлечения', icon: 'Gamepad2', color: 'bg-pink-500', type: 'expense' },
-    { id: '7', name: 'Здоровье', icon: 'Heart', color: 'bg-rose-500', type: 'expense' },
-    { id: '8', name: 'Образование', icon: 'GraduationCap', color: 'bg-indigo-500', type: 'expense' },
-  ]);
+  const [categories, setCategories] = useState<Category[]>(() => {
+    const saved = localStorage.getItem('finplan_categories');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    return [
+      { id: '1', name: 'Зарплата', icon: 'Briefcase', color: 'bg-emerald-500', type: 'income' },
+      { id: '2', name: 'Фриланс', icon: 'Laptop', color: 'bg-blue-500', type: 'income' },
+      { id: '3', name: 'Инвестиции', icon: 'TrendingUp', color: 'bg-purple-500', type: 'income' },
+      { id: '4', name: 'Продукты', icon: 'ShoppingCart', color: 'bg-orange-500', type: 'expense' },
+      { id: '5', name: 'Транспорт', icon: 'Car', color: 'bg-red-500', type: 'expense' },
+      { id: '6', name: 'Развлечения', icon: 'Gamepad2', color: 'bg-pink-500', type: 'expense' },
+      { id: '7', name: 'Здоровье', icon: 'Heart', color: 'bg-rose-500', type: 'expense' },
+      { id: '8', name: 'Образование', icon: 'GraduationCap', color: 'bg-indigo-500', type: 'expense' },
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('finplan_categories', JSON.stringify(categories));
+  }, [categories]);
 
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newCategoryType, setNewCategoryType] = useState<'income' | 'expense'>('income');

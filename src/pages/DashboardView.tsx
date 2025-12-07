@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -18,11 +18,21 @@ interface Transaction {
 }
 
 const DashboardView = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    { id: '1', type: 'income', amount: 50000, category: 'Зарплата', account: 'Тинькофф', date: '2025-12-01', description: 'Зарплата за ноябрь' },
-    { id: '2', type: 'expense', amount: 1200, category: 'Продукты', account: 'Тинькофф', date: '2025-12-02', description: 'Пятёрочка' },
-    { id: '3', type: 'expense', amount: 850, category: 'Транспорт', account: 'Наличные', date: '2025-12-03', description: 'Заправка' },
-  ]);
+  const [transactions, setTransactions] = useState<Transaction[]>(() => {
+    const saved = localStorage.getItem('finplan_transactions');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    return [
+      { id: '1', type: 'income', amount: 50000, category: 'Зарплата', account: 'Тинькофф', date: '2025-12-01', description: 'Зарплата за ноябрь' },
+      { id: '2', type: 'expense', amount: 1200, category: 'Продукты', account: 'Тинькофф', date: '2025-12-02', description: 'Пятёрочка' },
+      { id: '3', type: 'expense', amount: 850, category: 'Транспорт', account: 'Наличные', date: '2025-12-03', description: 'Заправка' },
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('finplan_transactions', JSON.stringify(transactions));
+  }, [transactions]);
 
   const [incomeAmount, setIncomeAmount] = useState('');
   const [incomeCategory, setIncomeCategory] = useState('');
