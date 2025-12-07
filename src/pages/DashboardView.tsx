@@ -24,9 +24,63 @@ const DashboardView = () => {
     { id: '3', type: 'expense', amount: 850, category: 'Транспорт', account: 'Наличные', date: '2025-12-03', description: 'Заправка' },
   ]);
 
+  const [incomeAmount, setIncomeAmount] = useState('');
+  const [incomeCategory, setIncomeCategory] = useState('');
+  const [incomeAccount, setIncomeAccount] = useState('');
+  const [incomeDescription, setIncomeDescription] = useState('');
+  const [isIncomeDialogOpen, setIsIncomeDialogOpen] = useState(false);
+
+  const [expenseAmount, setExpenseAmount] = useState('');
+  const [expenseCategory, setExpenseCategory] = useState('');
+  const [expenseAccount, setExpenseAccount] = useState('');
+  const [expenseDescription, setExpenseDescription] = useState('');
+  const [isExpenseDialogOpen, setIsExpenseDialogOpen] = useState(false);
+
   const totalIncome = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
   const totalExpense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
   const balance = totalIncome - totalExpense;
+
+  const handleAddIncome = () => {
+    if (!incomeAmount || !incomeCategory || !incomeAccount) return;
+
+    const newTransaction: Transaction = {
+      id: Date.now().toString(),
+      type: 'income',
+      amount: parseFloat(incomeAmount),
+      category: incomeCategory,
+      account: incomeAccount,
+      date: new Date().toISOString().split('T')[0],
+      description: incomeDescription || 'Без описания'
+    };
+
+    setTransactions([newTransaction, ...transactions]);
+    setIncomeAmount('');
+    setIncomeCategory('');
+    setIncomeAccount('');
+    setIncomeDescription('');
+    setIsIncomeDialogOpen(false);
+  };
+
+  const handleAddExpense = () => {
+    if (!expenseAmount || !expenseCategory || !expenseAccount) return;
+
+    const newTransaction: Transaction = {
+      id: Date.now().toString(),
+      type: 'expense',
+      amount: parseFloat(expenseAmount),
+      category: expenseCategory,
+      account: expenseAccount,
+      date: new Date().toISOString().split('T')[0],
+      description: expenseDescription || 'Без описания'
+    };
+
+    setTransactions([newTransaction, ...transactions]);
+    setExpenseAmount('');
+    setExpenseCategory('');
+    setExpenseAccount('');
+    setExpenseDescription('');
+    setIsExpenseDialogOpen(false);
+  };
 
   return (
     <div className="space-y-6">
@@ -78,7 +132,7 @@ const DashboardView = () => {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Dialog>
+        <Dialog open={isIncomeDialogOpen} onOpenChange={setIsIncomeDialogOpen}>
           <DialogTrigger asChild>
             <Button size="lg" className="w-full bg-emerald-500 hover:bg-emerald-600 text-white h-16 text-lg shadow-lg hover:shadow-xl transition-all">
               <Icon name="Plus" className="mr-2 h-6 w-6" />
@@ -92,44 +146,60 @@ const DashboardView = () => {
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="amount">Сумма</Label>
-                <Input id="amount" type="number" placeholder="0" />
+                <Input 
+                  id="amount" 
+                  type="number" 
+                  placeholder="0"
+                  value={incomeAmount}
+                  onChange={(e) => setIncomeAmount(e.target.value)}
+                />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="category">Категория</Label>
-                <Select>
+                <Select value={incomeCategory} onValueChange={setIncomeCategory}>
                   <SelectTrigger>
                     <SelectValue placeholder="Выберите категорию" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="salary">Зарплата</SelectItem>
-                    <SelectItem value="freelance">Фриланс</SelectItem>
-                    <SelectItem value="investment">Инвестиции</SelectItem>
+                    <SelectItem value="Зарплата">Зарплата</SelectItem>
+                    <SelectItem value="Фриланс">Фриланс</SelectItem>
+                    <SelectItem value="Инвестиции">Инвестиции</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="account">Счёт</Label>
-                <Select>
+                <Select value={incomeAccount} onValueChange={setIncomeAccount}>
                   <SelectTrigger>
                     <SelectValue placeholder="Выберите счёт" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="tinkoff">Тинькофф</SelectItem>
-                    <SelectItem value="sber">Сбербанк</SelectItem>
-                    <SelectItem value="cash">Наличные</SelectItem>
+                    <SelectItem value="Тинькофф">Тинькофф</SelectItem>
+                    <SelectItem value="Сбербанк">Сбербанк</SelectItem>
+                    <SelectItem value="Наличные">Наличные</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="description">Описание</Label>
-                <Input id="description" placeholder="Комментарий" />
+                <Input 
+                  id="description" 
+                  placeholder="Комментарий"
+                  value={incomeDescription}
+                  onChange={(e) => setIncomeDescription(e.target.value)}
+                />
               </div>
-              <Button className="w-full bg-emerald-500 hover:bg-emerald-600">Добавить</Button>
+              <Button 
+                className="w-full bg-emerald-500 hover:bg-emerald-600"
+                onClick={handleAddIncome}
+              >
+                Добавить
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
 
-        <Dialog>
+        <Dialog open={isExpenseDialogOpen} onOpenChange={setIsExpenseDialogOpen}>
           <DialogTrigger asChild>
             <Button size="lg" className="w-full bg-red-500 hover:bg-red-600 text-white h-16 text-lg shadow-lg hover:shadow-xl transition-all">
               <Icon name="Minus" className="mr-2 h-6 w-6" />
@@ -143,39 +213,57 @@ const DashboardView = () => {
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="expense-amount">Сумма</Label>
-                <Input id="expense-amount" type="number" placeholder="0" />
+                <Input 
+                  id="expense-amount" 
+                  type="number" 
+                  placeholder="0"
+                  value={expenseAmount}
+                  onChange={(e) => setExpenseAmount(e.target.value)}
+                />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="expense-category">Категория</Label>
-                <Select>
+                <Select value={expenseCategory} onValueChange={setExpenseCategory}>
                   <SelectTrigger>
                     <SelectValue placeholder="Выберите категорию" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="food">Продукты</SelectItem>
-                    <SelectItem value="transport">Транспорт</SelectItem>
-                    <SelectItem value="entertainment">Развлечения</SelectItem>
+                    <SelectItem value="Продукты">Продукты</SelectItem>
+                    <SelectItem value="Транспорт">Транспорт</SelectItem>
+                    <SelectItem value="Развлечения">Развлечения</SelectItem>
+                    <SelectItem value="Здоровье">Здоровье</SelectItem>
+                    <SelectItem value="Образование">Образование</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="expense-account">Счёт</Label>
-                <Select>
+                <Select value={expenseAccount} onValueChange={setExpenseAccount}>
                   <SelectTrigger>
                     <SelectValue placeholder="Выберите счёт" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="tinkoff">Тинькофф</SelectItem>
-                    <SelectItem value="sber">Сбербанк</SelectItem>
-                    <SelectItem value="cash">Наличные</SelectItem>
+                    <SelectItem value="Тинькофф">Тинькофф</SelectItem>
+                    <SelectItem value="Сбербанк">Сбербанк</SelectItem>
+                    <SelectItem value="Наличные">Наличные</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="expense-description">Описание</Label>
-                <Input id="expense-description" placeholder="Комментарий" />
+                <Input 
+                  id="expense-description" 
+                  placeholder="Комментарий"
+                  value={expenseDescription}
+                  onChange={(e) => setExpenseDescription(e.target.value)}
+                />
               </div>
-              <Button className="w-full bg-red-500 hover:bg-red-600">Добавить</Button>
+              <Button 
+                className="w-full bg-red-500 hover:bg-red-600"
+                onClick={handleAddExpense}
+              >
+                Добавить
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
