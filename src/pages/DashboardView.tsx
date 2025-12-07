@@ -31,18 +31,18 @@ const DashboardView = () => {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-3">
-        <Card className="bg-gradient-to-br from-cyan-50 to-teal-100 border-cyan-200 hover:shadow-lg transition-shadow">
+        <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200 hover:shadow-lg transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-cyan-900">Доходы</CardTitle>
-            <div className="w-10 h-10 bg-cyan-500 rounded-xl flex items-center justify-center">
+            <CardTitle className="text-sm font-medium text-emerald-900">Доходы</CardTitle>
+            <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
               <Icon name="TrendingUp" className="h-5 w-5 text-white" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-cyan-700">
+            <div className="text-3xl font-bold text-emerald-700">
               {totalIncome.toLocaleString('ru-RU')} ₽
             </div>
-            <p className="text-xs text-cyan-600 mt-1">+12.5% от прошлого месяца</p>
+            <p className="text-xs text-emerald-600 mt-1">+12.5% от прошлого месяца</p>
           </CardContent>
         </Card>
 
@@ -80,7 +80,7 @@ const DashboardView = () => {
       <div className="grid gap-4 md:grid-cols-2">
         <Dialog>
           <DialogTrigger asChild>
-            <Button size="lg" className="w-full bg-cyan-500 hover:bg-cyan-600 text-white h-16 text-lg shadow-lg hover:shadow-xl transition-all">
+            <Button size="lg" className="w-full bg-emerald-500 hover:bg-emerald-600 text-white h-16 text-lg shadow-lg hover:shadow-xl transition-all">
               <Icon name="Plus" className="mr-2 h-6 w-6" />
               Добавить доход
             </Button>
@@ -124,7 +124,7 @@ const DashboardView = () => {
                 <Label htmlFor="description">Описание</Label>
                 <Input id="description" placeholder="Комментарий" />
               </div>
-              <Button className="w-full bg-cyan-500 hover:bg-cyan-600">Добавить</Button>
+              <Button className="w-full bg-emerald-500 hover:bg-emerald-600">Добавить</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -198,7 +198,7 @@ const DashboardView = () => {
                 <div className="flex items-center gap-3">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
                     transaction.type === 'income' 
-                      ? 'bg-cyan-100 text-cyan-600' 
+                      ? 'bg-emerald-100 text-emerald-600' 
                       : 'bg-red-100 text-red-600'
                   }`}>
                     <Icon 
@@ -214,7 +214,7 @@ const DashboardView = () => {
                 </div>
                 <div className="text-right">
                   <p className={`text-lg font-bold ${
-                    transaction.type === 'income' ? 'text-cyan-600' : 'text-red-600'
+                    transaction.type === 'income' ? 'text-emerald-600' : 'text-red-600'
                   }`}>
                     {transaction.type === 'income' ? '+' : '-'}
                     {transaction.amount.toLocaleString('ru-RU')} ₽

@@ -41,7 +41,7 @@ const AccountsView = () => {
         <h2 className="text-2xl font-bold text-slate-900">Мои счета</h2>
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="bg-cyan-500 hover:bg-cyan-600">
+            <Button className="bg-emerald-500 hover:bg-emerald-600">
               <Icon name="Plus" className="mr-2 h-4 w-4" />
               Добавить счёт
             </Button>
@@ -73,7 +73,7 @@ const AccountsView = () => {
                 <Label htmlFor="account-balance">Начальный баланс</Label>
                 <Input id="account-balance" type="number" placeholder="0" />
               </div>
-              <Button className="w-full bg-cyan-500 hover:bg-cyan-600">Создать счёт</Button>
+              <Button className="w-full bg-emerald-500 hover:bg-emerald-600">Создать счёт</Button>
             </div>
           </DialogContent>
         </Dialog>

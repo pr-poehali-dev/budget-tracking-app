@@ -175,14 +175,14 @@ const ImportView = () => {
             onDrop={handleDrop}
             className={`border-2 border-dashed rounded-xl p-12 text-center transition-all ${
               isDragging 
-                ? 'border-cyan-500 bg-cyan-50' 
+                ? 'border-emerald-500 bg-emerald-50' 
                 : 'border-slate-300 bg-slate-50 hover:border-slate-400'
             }`}
           >
             {uploadedFile ? (
               <div className="space-y-4">
-                <div className="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mx-auto">
-                  <Icon name="FileCheck" className="h-8 w-8 text-cyan-600" />
+                <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto">
+                  <Icon name="FileCheck" className="h-8 w-8 text-emerald-600" />
                 </div>
                 <div>
                   <p className="text-lg font-semibold text-slate-900">{uploadedFile.name}</p>
@@ -254,10 +254,10 @@ const ImportView = () => {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2">
-                <Icon name="CheckCircle2" className="h-5 w-5 text-cyan-600" />
+                <Icon name="CheckCircle2" className="h-5 w-5 text-emerald-600" />
                 Найдено {parsedData.length} транзакций
               </CardTitle>
-              <Button onClick={handleImport} className="bg-cyan-500 hover:bg-cyan-600">
+              <Button onClick={handleImport} className="bg-emerald-500 hover:bg-emerald-600">
                 <Icon name="Download" className="mr-2 h-4 w-4" />
                 Импортировать всё
               </Button>
@@ -273,7 +273,7 @@ const ImportView = () => {
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                       transaction.type === 'income' 
-                        ? 'bg-cyan-100 text-cyan-600' 
+                        ? 'bg-emerald-100 text-emerald-600' 
                         : 'bg-red-100 text-red-600'
                     }`}>
                       <Icon 
@@ -288,7 +288,7 @@ const ImportView = () => {
                   </div>
                   <div className="text-right">
                     <p className={`text-lg font-bold ${
-                      transaction.type === 'income' ? 'text-cyan-600' : 'text-red-600'
+                      transaction.type === 'income' ? 'text-emerald-600' : 'text-red-600'
                     }`}>
                       {transaction.type === 'income' ? '+' : '-'}
                       {transaction.amount.toLocaleString('ru-RU')} ₽

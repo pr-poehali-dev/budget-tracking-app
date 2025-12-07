@@ -17,7 +17,7 @@ const Index = () => {
         <header className="mb-8 animate-fade-in">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg">
                 <Icon name="Wallet" size={24} className="text-white" />
               </div>
               <div>
@@ -31,42 +31,42 @@ const Index = () => {
             <TabsList className="grid w-full grid-cols-6 h-auto p-1 bg-white/80 backdrop-blur shadow-md">
               <TabsTrigger 
                 value="dashboard" 
-                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-cyan-500 data-[state=active]:text-white"
+                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-emerald-500 data-[state=active]:text-white"
               >
                 <Icon name="LayoutDashboard" size={20} />
                 <span className="text-xs font-medium">Главная</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="accounts"
-                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-cyan-500 data-[state=active]:text-white"
+                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-emerald-500 data-[state=active]:text-white"
               >
                 <Icon name="CreditCard" size={20} />
                 <span className="text-xs font-medium">Счета</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="categories"
-                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-cyan-500 data-[state=active]:text-white"
+                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-emerald-500 data-[state=active]:text-white"
               >
                 <Icon name="FolderTree" size={20} />
                 <span className="text-xs font-medium">Категории</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="transactions"
-                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-cyan-500 data-[state=active]:text-white"
+                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-emerald-500 data-[state=active]:text-white"
               >
                 <Icon name="ArrowLeftRight" size={20} />
                 <span className="text-xs font-medium">Транзакции</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="statistics"
-                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-cyan-500 data-[state=active]:text-white"
+                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-emerald-500 data-[state=active]:text-white"
               >
                 <Icon name="BarChart3" size={20} />
                 <span className="text-xs font-medium">Статистика</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="import"
-                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-cyan-500 data-[state=active]:text-white"
+                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-emerald-500 data-[state=active]:text-white"
               >
                 <Icon name="Upload" size={20} />
                 <span className="text-xs font-medium">Импорт</span>

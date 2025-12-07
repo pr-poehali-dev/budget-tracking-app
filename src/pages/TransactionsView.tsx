@@ -47,7 +47,7 @@ const TransactionsView = () => {
           <Button
             variant={filter === 'income' ? 'default' : 'outline'}
             onClick={() => setFilter('income')}
-            className={filter === 'income' ? 'bg-cyan-500 hover:bg-cyan-600' : ''}
+            className={filter === 'income' ? 'bg-emerald-500 hover:bg-emerald-600' : ''}
           >
             <Icon name="TrendingUp" className="mr-2 h-4 w-4" />
             Доходы
@@ -91,7 +91,7 @@ const TransactionsView = () => {
                 <div className="flex items-center gap-4">
                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${
                     transaction.type === 'income' 
-                      ? 'bg-cyan-100 text-cyan-600' 
+                      ? 'bg-emerald-100 text-emerald-600' 
                       : 'bg-red-100 text-red-600'
                   }`}>
                     <Icon 
@@ -110,7 +110,7 @@ const TransactionsView = () => {
                 </div>
                 <div className="text-right">
                   <p className={`text-2xl font-bold ${
-                    transaction.type === 'income' ? 'text-cyan-600' : 'text-red-600'
+                    transaction.type === 'income' ? 'text-emerald-600' : 'text-red-600'
                   }`}>
                     {transaction.type === 'income' ? '+' : '-'}
                     {transaction.amount.toLocaleString('ru-RU')} ₽
