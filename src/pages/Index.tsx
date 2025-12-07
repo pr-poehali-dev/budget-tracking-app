@@ -6,6 +6,7 @@ import AccountsView from './AccountsView';
 import CategoriesView from './CategoriesView';
 import TransactionsView from './TransactionsView';
 import StatisticsView from './StatisticsView';
+import ImportView from './ImportView';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -27,7 +28,7 @@ const Index = () => {
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-5 h-auto p-1 bg-white/80 backdrop-blur shadow-md">
+            <TabsList className="grid w-full grid-cols-6 h-auto p-1 bg-white/80 backdrop-blur shadow-md">
               <TabsTrigger 
                 value="dashboard" 
                 className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-cyan-500 data-[state=active]:text-white"
@@ -63,6 +64,13 @@ const Index = () => {
                 <Icon name="BarChart3" size={20} />
                 <span className="text-xs font-medium">Статистика</span>
               </TabsTrigger>
+              <TabsTrigger 
+                value="import"
+                className="flex flex-col items-center gap-1 py-3 data-[state=active]:bg-cyan-500 data-[state=active]:text-white"
+              >
+                <Icon name="Upload" size={20} />
+                <span className="text-xs font-medium">Импорт</span>
+              </TabsTrigger>
             </TabsList>
 
             <div className="mt-6">
@@ -80,6 +88,9 @@ const Index = () => {
               </TabsContent>
               <TabsContent value="statistics" className="animate-fade-in">
                 <StatisticsView />
+              </TabsContent>
+              <TabsContent value="import" className="animate-fade-in">
+                <ImportView />
               </TabsContent>
             </div>
           </Tabs>
